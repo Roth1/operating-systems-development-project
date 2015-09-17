@@ -15,7 +15,7 @@ CC = gcc
 AS = gcc
 LD = ld
 OBJCOPY = objcopy
-QEMU = /usr/libexec/qemu-kvm
+QEMU = ~/libexec/qemu-kvm
 
 CFLAGS = -m32 -Wall -Werror -g -gstabs -std=c99 -nostdinc -fno-stack-protector -I.
 ASFLAGS = -m32 -DASSEMBLER -g -gstabs -I.

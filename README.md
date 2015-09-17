@@ -7,13 +7,11 @@ _______________________________________________________________________________
 
 Notions seen include Operating System kernel design and writing low-level C code interacting with a standard PC hardware. Time-sharing is introduced by implementing a simple pre-emptive scheduler.
 
-### How do I get set up? ###
+### How do I use this / get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* $ make
+* $ make run
+* Using VNC connect Vinagre (*TCP*)
+* Continue execution by using GDB: target remote *:1234*
 
 ### Created by M. Roth ###

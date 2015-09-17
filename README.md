@@ -12,6 +12,7 @@ Notions seen include Operating System kernel design and writing low-level C code
 * $ make
 * $ make run
 * Using VNC connect Vinagre (*TCP*)
-* Continue execution by using GDB: target remote *:1234*
+* (gdb) target remote :1234
+* (gdb) continue
 
 ### Created by M. Roth ###

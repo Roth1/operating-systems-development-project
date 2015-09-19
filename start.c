@@ -19,16 +19,17 @@ uint32_t fact(uint32_t n)
 
 void kernel_start(void)
 {
-    //uint32_t x = fact(5);
+    uint32_t x = fact(5);
     // quand on saura gerer l'ecran, on pourra afficher x
-    //(void)x;
+    (void)x;
+    
+    efface_ecran();
 
-    uint8_t i, j;
-    for(i = 0; i < 25; i++) {
-        for(j = 0; j < 80; j++) {
-            ecrit_car(i, j, 'X');
-        }
-    }
+    ecrit_car(10, 39, 'X');
+    ecrit_car(10, 40, 'Y');
+    ecrit_car(10, 41, 'B');
+    
+    place_curseur(10, 42);
 
     // on ne doit jamais sortir de kernel_start
     while (1) {

@@ -2,6 +2,7 @@
 #define AFFICHAGE_H_
 
 #include <cpu.h>
+#include <string.h>
 #include <inttypes.h>
 
 #define ADRESSE_DE_DEBUT (uint16_t *)0xB8000
@@ -22,9 +23,10 @@ void efface_ecran(void);
 void traite_car(char c);
 
 //remonter d'une ligne l'affichage à l'écran (il pourra être judicieux d'utiliser memmove définie dans string.h pour cela)
-//void defilement(void);
+void defilement(void);
 
-//afficher une chaine de caractères à la position courante du curseur
-//void console_putbytes(char *chaine, int32_t taille);
+void console_putbytes(char *chaine, int32_t taille);
+
+void affiche_heure(char *chaine, int32_t taille);
 
 #endif

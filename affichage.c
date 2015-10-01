@@ -32,6 +32,20 @@ void place_curseur(uint32_t lig, uint32_t col) {
     return;
 }
 
+/*
+uint8_t get_ligne(void) {
+  uint8_t partie_basse = inb(0x3D5);
+  uint8_t ligne = partie_basse % 80;
+  return ligne;
+}
+
+uint8_t get_colonne(void) {
+  uint8_t partie_basse = inb(0x3D5);
+  uint8_t colonne = (partie_basse - (partie_basse % 80)) / 80;
+  return colonne;
+}
+*/
+
 void efface_ecran(void) {
     //écrit ' ' dans toutes les coordonnées possibles
     uint8_t i, j;
@@ -43,52 +57,100 @@ void efface_ecran(void) {
     return;
 }
 
-/*** WHAT IF LIGNE >80 ? + GET POS_Y / POS_X ***/
+//let's go global
+uint32_t ligne = 0;
+uint32_t colonne = 0;
+
+/*** WHAT IF LIGNE >80 ? + BETER GET POS_Y / POS_X ***/
 void traite_car(char c) {
     //c doit être positif; on ignore tous les caractères >127; on ignore le caractère 127
+    c = (int)c;
     if(c < 0 || c > 126) {
         return;
     }
-    //get les coordonnées (ligne -> pos_y, colonne -> pos_x)
-    uint32_t pos_y = 0;
-    uint32_t pos_x = 0;
+    //get les coordonnées (ligne -> ligne, colonne -> colonne)
+    //uint32_t ligne = get_ligne();
+    //uint32_t colonne = get_colonne();
     if(c < 32) {
         switch(c) {
         case 8: // '\b'
-            if(pos_x) {
-                place_curseur(pos_y, --pos_x);
+            if(colonne) {
+                place_curseur(ligne, --colonne);
             }
             break;
         case 9: // '\t'
-            if(pos_x < 72) {
+            if(colonne < 72) {
                 //avance à la prochaine valeur de la chaine 8
-                pos_x = pos_x + (8 - (pos_x % 8));
+                colonne = colonne + (8 - (colonne % 8));
             } else {
-                pos_x = 79;
+                colonne = 79;
             }
-            place_curseur(pos_y, pos_x);
+            place_curseur(ligne, colonne);
             break;
         case 10: // '\n'
-            place_curseur(++pos_y, 0); //!!!
-            break;
+	    colonne = 0;
+	    if(ligne + 1 < 25) {
+                place_curseur(++ligne, colonne);
+	    } else {
+	        defilement();
+		place_curseur(ligne, colonne);
+	    }
+	    break;
         case 12: // '\f'
             efface_ecran();
-            place_curseur(0, 0);
+	    ligne = 0;
+	    colonne = 0;
+            place_curseur(ligne, colonne);
             break;
         case 13: // '\r'
-            place_curseur(pos_y, 0);
+   	    colonne = 0;
+            place_curseur(ligne, colonne);
             break;
         default:
             //ignore les autres caractères
             break;
         }
     } else {
-        ecrit_car(pos_y, pos_x, c);
-        if(pos_x + 1 < 80) {
-            place_curseur(pos_y, ++pos_x);
-        } else {
-            place_curseur(++pos_y, 0); //!!!
-        }
+        ecrit_car(ligne, colonne, c);
+        if(colonne + 1 < 80) {
+	    place_curseur(ligne, ++colonne);
+	} else {
+	    colonne = 0;
+	  if(ligne + 1 < 25) {
+	      place_curseur(++ligne, colonne);
+	  } else {
+	      defilement();
+	      place_curseur(ligne, colonne);
+	  }
+	}
     }
     return;
 }
+
+void defilement(void) {
+  
+  uint16_t *destination = ptr_mem(0, 0);
+  uint16_t *source = ptr_mem(1, 0);
+  
+  memmove(destination, source, 80);
+  uint32_t i;
+  for(i = 0; i < 80; i++) { 
+    ecrit_car(24, i, ' ');
+  }
+}
+
+void console_putbytes(char *chaine, int32_t taille) {
+  uint32_t i;
+    for(i = 0; i < taille; i++) {
+      traite_car(chaine[i]);
+    }
+}
+
+void affiche_heure(char *chaine, int32_t taille) {
+  uint32_t i;
+  
+
+
+  console_putbytes(chaine, taille);
+  
+  place_curseur(ligne, colonne);

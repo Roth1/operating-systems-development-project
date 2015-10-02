@@ -128,24 +128,25 @@ void traite_car(char c) {
 }
 
 void defilement(void) {
-  
-  uint16_t *destination = ptr_mem(0, 0);
-  uint16_t *source = ptr_mem(1, 0);
-  
-  memmove(destination, source, 80);
-  uint32_t i;
-  for(i = 0; i < 80; i++) { 
-    ecrit_car(24, i, ' ');
-  }
-}
-
-void console_putbytes(char *chaine, int32_t taille) {
-  uint32_t i;
-    for(i = 0; i < taille; i++) {
-      traite_car(chaine[i]);
+    uint8_t i;
+    uint8_t j;
+    //uint16_t *destination = ptr_mem(0, 0);
+    //uint16_t *source = ptr_mem(1, 0);
+    for(i = 0; i < 24; i++) {
+        memmove(ptr_mem(i, 0), ptr_mem(i + 1, 0), 160);
+    }
+    for(j = 0; j < 80; j++) { 
+        ecrit_car(24, j, ' ');
     }
 }
 
+void console_putbytes(char *chaine, int32_t taille) {
+    uint32_t i;
+    for(i = 0; i < taille; i++) {
+	traite_car(chaine[i]);
+    }
+}
+/*
 void affiche_heure(char *chaine, int32_t taille) {
   uint32_t i;
   
@@ -154,3 +155,4 @@ void affiche_heure(char *chaine, int32_t taille) {
   console_putbytes(chaine, taille);
   
   place_curseur(ligne, colonne);
+*/

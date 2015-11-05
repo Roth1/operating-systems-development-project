@@ -71,6 +71,8 @@ void kernel_start(void)
     printf("\n41try to clean it up with my sock");
     printf("\n42start to cry");
     
+    //affiche_heure("4:20 - BLAZE IT", 16);
+
     // on ne doit jamais sortir de kernel_start
     while (1) {
         // cette fonction arrete le processeur

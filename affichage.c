@@ -61,7 +61,6 @@ void efface_ecran(void) {
 uint32_t ligne = 0;
 uint32_t colonne = 0;
 
-/*** WHAT IF LIGNE >80 ? + BETER GET POS_Y / POS_X ***/
 void traite_car(char c) {
     //c doit être positif; on ignore tous les caractères >127; on ignore le caractère 127
     c = (int)c;
@@ -146,13 +145,14 @@ void console_putbytes(char *chaine, int32_t taille) {
 	traite_car(chaine[i]);
     }
 }
-/*
+
 void affiche_heure(char *chaine, int32_t taille) {
-  uint32_t i;
-  
-
-
-  console_putbytes(chaine, taille);
-  
-  place_curseur(ligne, colonne);
-*/
+    uint32_t xligne = ligne;
+    uint32_t xcolonne = colonne;
+    ligne = 0;
+    colonne = 80 - strlen(chaine);
+    console_putbytes(chaine, taille);
+    ligne = xligne;
+    colonne = xcolonne;
+    place_curseur(ligne, colonne);
+}

@@ -25,8 +25,10 @@ void traite_car(char c);
 //remonter d'une ligne l'affichage à l'écran (il pourra être judicieux d'utiliser memmove définie dans string.h pour cela)
 void defilement(void);
 
+//mettre les bytes sur l'écran (utilisé par printf())
 void console_putbytes(char *chaine, int32_t taille);
 
+//afficher l'uptime
 void affiche_heure(char *chaine, int32_t taille);
 
 #endif

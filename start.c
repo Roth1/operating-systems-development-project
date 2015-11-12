@@ -2,6 +2,7 @@
 #include "stdio.h"
 #include <inttypes.h>
 #include "affichage.h"
+#include "temps.h"
 
 // on peut s'entrainer a utiliser GDB avec ce code de base
 // par exemple afficher les valeurs de x, n et res avec la commande display
@@ -71,7 +72,10 @@ void kernel_start(void)
     printf("\n41try to clean it up with my sock");
     printf("\n42start to cry");
     
-    //affiche_heure("4:20 - BLAZE IT", 16);
+    // init l'heure
+    regle_PIT();
+    // démasquage des interruptions externes
+    sti();
 
     // on ne doit jamais sortir de kernel_start
     while (1) {

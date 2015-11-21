@@ -1,5 +1,3 @@
-# README #
-
 *This is a university project and serves exclusively for educational purposes.*
 _______________________________________________________________________________
 
@@ -14,5 +12,3 @@ Notions seen include Operating System kernel design and writing low-level C code
 * Using VNC connect Vinagre (*TCP*)
 * (gdb) target remote :1234
 * (gdb) continue
-
-### Created by M. Roth ###

@@ -9,6 +9,6 @@ Notions seen include Operating System kernel design and writing low-level C code
 
 * `$ make`
 * `$ make run`
-* Using VNC connect Vinagre (*TCP*)
+* Using VNC connect Vinagre (TCP) or visualize directly with QEMU
 * `(gdb) target remote :1234`
 * `(gdb) continue`

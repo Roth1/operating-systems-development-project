@@ -7,8 +7,8 @@ Notions seen include Operating System kernel design and writing low-level C code
 
 ### How do I use this / get set up? ###
 
-* $ make
-* $ make run
+* `$ make`
+* `$ make run`
 * Using VNC connect Vinagre (*TCP*)
-* (gdb) target remote :1234
-* (gdb) continue
+* `(gdb) target remote :1234`
+* `(gdb) continue`

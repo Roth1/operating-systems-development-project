@@ -1,15 +1,42 @@
-#include "processus.h"
+#ifndef PROCESSUS_H_
+#define PROCESSUS_H_
 
-t_proc procs[2];
+#include <cpu.h>
+#include <stdbool.h>
+#include "stdio.h"
+#include <inttypes.h>
+#include "affichage.h"
+#include "segment.h"
 
-void idle(void) {
-    printf("[idle] je tente de passer  la main a proc1 ...\n");
-    ctx_sw(procs[0].regs, procs[1].regs);
-}
+#define NB_PROC 2
 
-void proc1(void) {
-    printf("[proc1] idle m'a donne la main!\n");
-    printf("[proc1] j'arrete le systeme!\n");
-    hlt();
-}
+typedef enum {ELU, ACTIVABLE} etat;
 
+typedef struct t_proc {
+    //signed since error is -1
+    int32_t pid;
+    char nom[10];
+    etat mon_etat;
+    uint32_t regs[5];
+    uint32_t pile[512];
+} t_proc;
+
+t_proc procs[NB_PROC];
+
+void init_procs(void);
+
+void ordonnance(void);
+
+char* mon_nom(void);
+
+int32_t mon_pid(void);
+
+void ctx_sw(uint32_t *ancien, uint32_t *nouveau);
+
+// default process, you may idle here
+void idle(void);
+
+// a process we implement
+void proc1(void);
+
+#endif

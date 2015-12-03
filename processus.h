@@ -13,13 +13,17 @@ typedef enum {ELU, ACTIVABLE} etat;
 typedef struct t_proc {
     //signed since error is -1
     int32_t pid;
-    uint8_t nom[10];
+    char nom[10];
     etat mon_etat;
     uint32_t regs[5];
-    uint32_t pile{512];
+    uint32_t pile[512];
 } t_proc;
 
 t_proc procs[2];
+
+void init_procs(void);
+
+void ctx_sw(uint32_t *ancien, uint32_t *nouveau);
 
 // default process, you may idle here
 void idle(void);

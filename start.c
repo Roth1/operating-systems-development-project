@@ -15,7 +15,7 @@ void kernel_start(void)
     // init l'heure
     regle_PIT();
     // démasquage des interruptions externes
-    sti();
+    //sti();
     // initialise les processus a utiliser
     init_procs();
     // defaut processus

@@ -7,6 +7,7 @@
 #include <inttypes.h>
 #include "affichage.h"
 #include "segment.h"
+#include "processus.h"
 
 #define QUARTZ 0x1234DD
 #define CLOCKFREQ 50

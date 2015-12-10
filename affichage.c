@@ -6,16 +6,16 @@ uint16_t *ptr_mem(uint32_t lig, uint32_t col) {
     return ptr_case;
 }
 
-void ecrit_car(uint32_t lig, uint32_t col, char c) {
+void ecrit_car(uint32_t lig, uint32_t col, char c, int32_t COLOR) {
     //get pointeur sur la case mémoire
     uint16_t *ptr_format = ptr_mem(lig, col);
     //set tous les bits de la case mémoire à 0
-    *ptr_format &= ~65534;
-    *ptr_format &= ~1;
+    //*ptr_format &= ~0xFFFF;
+    //*ptr_format &= ~1;
     //format: fond noir, texte vert
-    *ptr_format |= 512;
+    *ptr_format = COLOR | c;
     //set caractère
-    *ptr_format |= c;
+    //*ptr_format |= c;
     return;
 }
 
@@ -32,26 +32,12 @@ void place_curseur(uint32_t lig, uint32_t col) {
     return;
 }
 
-/*
-uint8_t get_ligne(void) {
-  uint8_t partie_basse = inb(0x3D5);
-  uint8_t ligne = partie_basse % 80;
-  return ligne;
-}
-
-uint8_t get_colonne(void) {
-  uint8_t partie_basse = inb(0x3D5);
-  uint8_t colonne = (partie_basse - (partie_basse % 80)) / 80;
-  return colonne;
-}
-*/
-
 void efface_ecran(void) {
     //écrit ' ' dans toutes les coordonnées possibles
     uint8_t i, j;
     for(i = 0; i < 25; i++) {
         for(j = 0; j < 80; j++) {
-            ecrit_car(i, j, ' ');
+	    ecrit_car(i, j, ' ', VERT);
         }
     }
     return;
@@ -110,7 +96,7 @@ void traite_car(char c) {
             break;
         }
     } else {
-        ecrit_car(ligne, colonne, c);
+      ecrit_car(ligne, colonne, c, VERT);
         if(colonne + 1 < 80) {
 	    place_curseur(ligne, ++colonne);
 	} else {
@@ -135,7 +121,7 @@ void defilement(void) {
         memmove(ptr_mem(i, 0), ptr_mem(i + 1, 0), 160);
     }
     for(j = 0; j < 80; j++) { 
-        ecrit_car(24, j, ' ');
+      ecrit_car(24, j, ' ', VERT);
     }
 }
 

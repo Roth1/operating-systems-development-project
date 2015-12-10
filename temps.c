@@ -6,21 +6,32 @@ uint32_t compteur = 0;
 int32_t minutes = 0;
 int32_t secondes = 0;
 
+// pour l'ordonnonceur
+extern uint32_t temps_up;
+
+//uint32_t get_temps_up();
+
 void tic_PIT(void) {
     outb(0x20, 0x20);  
-    char buffer[10];
+    char buffer[12];
     int32_t taille = 10;
     compteur++;
+    affiche_procs();
     if(compteur == 50) {
+        temps_up++;
         secondes++;
 	if(secondes == 60) {
 	    minutes++;
 	    secondes = 0;
 	}
 	compteur = 0;
-    }    
-    taille = sprintf(buffer, "%d:%d", minutes, secondes);
+    }
+    
+    taille = sprintf(buffer, "%02d:%02d", minutes, secondes);
+    
     affiche_heure(buffer, taille);
+    // ordonnancement des processus gere par l'interruption
+    ordonnance();
 }
 
 void init_traitant_IT(int32_t numIT, void (*traitant)(void)) {

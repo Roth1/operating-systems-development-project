@@ -1,5 +1,3 @@
-# README #
-
 *This is a university project and serves exclusively for educational purposes.*
 _______________________________________________________________________________
 
@@ -9,10 +7,8 @@ Notions seen include Operating System kernel design and writing low-level C code
 
 ### How do I use this / get set up? ###
 
-* $ make
-* $ make run
-* Using VNC connect Vinagre (*TCP*)
-* (gdb) target remote :1234
-* (gdb) continue
-
-### Created by M. Roth ###
+* `$ make`
+* `$ make run`
+* Using VNC connect Vinagre (TCP) or visualize directly with QEMU
+* `(gdb) target remote :1234`
+* `(gdb) continue`

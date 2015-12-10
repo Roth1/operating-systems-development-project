@@ -10,8 +10,10 @@
 
 #define NB_PROC 4
 
+// etats possibles
 typedef enum {ELU, ACTIVABLE, ENDORMI, MORT} etat;
 
+// structure pour gerer les processus
 typedef struct t_proc {
     //signed since error is -1
     int32_t pid;
@@ -22,6 +24,7 @@ typedef struct t_proc {
     uint32_t pile[512];
 } t_proc;
 
+// tableau des processus
 t_proc procs[NB_PROC];
 
 // initialise le tableau des processus
